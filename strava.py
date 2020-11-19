@@ -2,7 +2,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-plt.style.use('seaborn-dark-palette')
+plt.style.use('ggplot')
+sns.set_style('darkgrid')
 
 # data frame read
 df = pd.read_csv('strava.csv', parse_dates=True, index_col='Activity Date')
@@ -89,18 +90,41 @@ plt.show()
 
 # subsetting data by activity
 run_df = df[df['Activity Type'] == 'Run'].copy()
+
+
+
+# CHAINGING ACTIVITY NAME TO DATETIME NOT CONVERTING
+run_df['Activity Name'] = pd.to_datetime(run_df['Activity Name'])
 run_df_distance = run_df['Distance']
 run_df_avg_speed = run_df['Average Speed']
 run_df_p_rel_effort = run_df['Perceived Relative Effort']
 
 
-fig, (ax0, ax1, ax2) = plt.subplots(3, sharex=True, figsize=(10,5))
+fig, (ax0, ax1, ax2) = plt.subplots(3, sharex=False, figsize=(19,7))
 
-run_df_distance.plot(ax=ax0)
-run_df_avg_speed.plot(ax=ax1)
-run_df_p_rel_effort.plot(ax=ax2)
+run_df_distance.plot(ax=ax0, linestyle='none', marker='o', markersize=4)
+run_df_avg_speed.plot(ax=ax1, linestyle='none', marker='o', markersize=4, color='blue')
+run_df_p_rel_effort.plot(ax=ax2, linestyle='none', marker='o', markersize=4, color='green')
 
+
+ax0.set_title('Run distance (km)')
+ax0.set_xlabel(' ')
+ax0.grid(True)
+ax1.set_title('Run avg. speed (km/h)')
+ax1.set_xlabel(' ')
+ax1.grid(True)
+ax2.set_title('Run perceived relative effort')
+ax2.grid(True)
+
+fig.tight_layout()
+plt.xticks(range(min(run_df['Activity Name']), max(run_df['Activity Name'])+1))
+#plt.close()
 plt.show()
+
+print(run_df.columns)
+
+print(run_df['Activity Name'].min())
+# print(run_df_p_rel_effort.describe())
 
 #print(run_df.columns)
 
