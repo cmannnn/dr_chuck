@@ -63,8 +63,13 @@ df['Grade Adjusted Distance'].fillna(int(g_adjusted_mean), inplace=True)
 '''_____________________________________________________________________________________________'''
 
 # splitting DataFrames into 3, specific for different activities for later analysis
+# just run data set
 df_run = df[df['Activity Type'] == 'Run'].copy()
+
+# just bike data set
 df_ride = df[df['Activity Type'] == 'Ride'].copy()
+
+# just hike data set
 df_hike = df[df['Activity Type'] == 'Hike'].copy()
 
 '''_____________________________________________________________________________________________'''
@@ -74,59 +79,81 @@ act_count = df['Activity Type'].value_counts().sum()
 
 # creating fig, ax
 fig, ax = plt.subplots()
+
+# countplot of activities by type
 sns.countplot(df['Activity Type'])
 
+# setting the x and y label
 ax.set_xlabel('Activity type')
 ax.set_ylabel('# of activities recorded')
+
+# setting the title
 plt.title('Count of activity type', fontsize=20, fontweight=10)
+
+# changing the graph sytle
 sns.set_style('dark')
 sns.despine(right=True)
 
-# remove to display graph
+# remove below line to display graph!
 plt.close()
 plt.show()
 
 '''_____________________________________________________________________________________________'''
 
-# subsetting data by activity
-run_df = df[df['Activity Type'] == 'Run'].copy()
+# replacing one bad date
+df_run.replace(to_replace='3020-10-23', value='2020-10-23', inplace=True)
 
+# creating date time column
+df_run['Activity Name'] = pd.to_datetime(df_run['Activity Name'])
 
+# sub setting running data
+# running distance
+run_df_distance = df_run['Distance']
 
-# CHAINGING ACTIVITY NAME TO DATETIME NOT CONVERTING
-run_df['Activity Name'] = pd.to_datetime(run_df['Activity Name'])
-run_df_distance = run_df['Distance']
-run_df_avg_speed = run_df['Average Speed']
-run_df_p_rel_effort = run_df['Perceived Relative Effort']
+# running speed
+run_df_avg_speed = df_run['Average Speed']
 
+# running perceived relative effort
+run_df_p_rel_effort = df_run['Perceived Relative Effort']
 
+# creating fig, ax in subplots
 fig, (ax0, ax1, ax2) = plt.subplots(3, sharex=False, figsize=(19,7))
 
 run_df_distance.plot(ax=ax0, linestyle='none', marker='o', markersize=4)
 run_df_avg_speed.plot(ax=ax1, linestyle='none', marker='o', markersize=4, color='blue')
 run_df_p_rel_effort.plot(ax=ax2, linestyle='none', marker='o', markersize=4, color='green')
 
-
+# ax0 graph params
 ax0.set_title('Run distance (km)')
 ax0.set_xlabel(' ')
+ax0.axhline(run_df_distance.mean(), alpha=0.3, color='black')
 ax0.grid(True)
+
+# ax1 graph params
 ax1.set_title('Run avg. speed (km/h)')
 ax1.set_xlabel(' ')
+ax1.axhline(run_df_avg_speed.mean(), alpha=0.3, color='black')
 ax1.grid(True)
+
+# ax2 graph params
 ax2.set_title('Run perceived relative effort')
+ax2.axhline(run_df_p_rel_effort.mean(), alpha=0.3, color='black')
 ax2.grid(True)
 
+
+# HAVE TO FIX XTICKS EVERY 3 DAYS
+'''for dates in df_run['Activity Name'].day:
+	dates += 3
+	print(dates)'''
+
 fig.tight_layout()
-plt.xticks(range(min(run_df['Activity Name']), max(run_df['Activity Name'])+1))
-#plt.close()
+plt.xticks()
+plt.legend('')
+
+
+plt.close()
 plt.show()
 
-print(run_df.columns)
-
-print(run_df['Activity Name'].min())
-# print(run_df_p_rel_effort.describe())
-
-#print(run_df.columns)
 
 '''_____________________________________________________________________________________________'''
 bike_df = df[df['Activity Type'] == 'Bike'].copy()
@@ -142,7 +169,6 @@ fig, ax = plt.subplots(3, 1)
 #ax0 = plt.plot(kind='scatter', data=run_df)
 #ax1 = plt.plot(kind='scatter', data=bike_df)
 #ax2 = plt.plot(kind='scatter', data=hike_df)
-
 
 
 
