@@ -123,35 +123,46 @@ run_df_distance.plot(ax=ax0, linestyle='none', marker='o', markersize=4)
 run_df_avg_speed.plot(ax=ax1, linestyle='none', marker='o', markersize=4, color='blue')
 run_df_p_rel_effort.plot(ax=ax2, linestyle='none', marker='o', markersize=4, color='green')
 
+# dates being used for x axis
+dates = ['2020-06-28', '2020-07-01', '2020-07-04', '2020-07-07', '2020-07-10', '2020-07-13', '2020-07-16', '2020-07-19', '2020-07-22', '2020-07-25', '2020-07-28', '2020-07-31', '2020-08-03', '2020-08-06', '2020-08-09', '2020-08-12', '2020-08-15', '2020-08-18', '2020-08-21', '2020-08-24', '2020-08-27', '2020-08-30', '2020-09-02', '2020-09-05', '2020-09-08', '2020-09-11', '2020-09-14', '2020-09-17', '2020-09-20', '2020-09-23', '2020-09-26', '2020-09-29', '2020-10-02', '2020-10-05', '2020-10-08', '2020-10-11', '2020-10-14', '2020-10-17', '2020-10-20', '2020-10-23', '2020-10-26', '2020-10-29', '2020-11-02', '2020-11-5', '2020-11-08', '2020-11-11', '2020-11-14']
+
 # ax0 graph params
 ax0.set_title('Run distance (km)')
 ax0.set_xlabel(' ')
 ax0.axhline(run_df_distance.mean(), alpha=0.3, color='black')
 ax0.grid(True)
+ax0.set_xlim(df_run['Activity Name'].min(), df_run['Activity Name'].max())
+ax0.set_ylim([4,16])
+
 
 # ax1 graph params
+# FININSH SETTING Y LIM'S
+# FINISH TRIMMING XLABELS
 ax1.set_title('Run avg. speed (km/h)')
 ax1.set_xlabel(' ')
 ax1.axhline(run_df_avg_speed.mean(), alpha=0.3, color='black')
 ax1.grid(True)
+ax1.set_xlim(df_run['Activity Name'].min(), df_run['Activity Name'].max())
+#ax1.set_ylim()
+ax1.set_xlabel('', fontsize=1)
 
 # ax2 graph params
 ax2.set_title('Run perceived relative effort')
 ax2.axhline(run_df_p_rel_effort.mean(), alpha=0.3, color='black')
 ax2.grid(True)
+ax2.set_xlim(df_run['Activity Name'].min(), df_run['Activity Name'].max())
+#ax2.set_ylim()
+ax2.set_xlabel('', fontsize=1)
 
+print(run_df_distance.describe())
+#print(df_run['Activity Name'].max())
 
-# HAVE TO FIX XTICKS EVERY 3 DAYS
-'''for dates in df_run['Activity Name'].day:
-	dates += 3
-	print(dates)'''
-
-fig.tight_layout()
-plt.xticks()
+# figure layout
+plt.setp((ax0, ax1, ax2), xticks=dates)
 plt.legend('')
+fig.tight_layout()
 
-
-plt.close()
+#plt.close()
 plt.show()
 
 
