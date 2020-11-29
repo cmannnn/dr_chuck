@@ -107,17 +107,17 @@ df_run.replace(to_replace='3020-10-23', value='2020-10-23', inplace=True)
 df_run['Activity Name'] = pd.to_datetime(df_run['Activity Name'])
 
 # sub setting running data
-# running distance
-run_df_distance = df_run['Distance']
+# running distance IN MILES
+run_df_distance = (df_run['Distance'] / (8/5))
 
-# running speed
-run_df_avg_speed = df_run['Average Speed']
+# calculating average speed IN MILES/HOUR
+run_df_avg_speed = (run_df_distance / (df_run['Moving Time'] / 3600))
 
 # running perceived relative effort
 run_df_p_rel_effort = df_run['Perceived Relative Effort']
 
 # creating fig, ax in subplots
-fig, (ax0, ax1, ax2) = plt.subplots(3, sharex=False, figsize=(19,7))
+fig, (ax0, ax1, ax2) = plt.subplots(3, sharex=False, figsize=(19,8))
 
 run_df_distance.plot(ax=ax0, linestyle='none', marker='o', markersize=4)
 run_df_avg_speed.plot(ax=ax1, linestyle='none', marker='o', markersize=4, color='blue')
@@ -127,35 +127,39 @@ run_df_p_rel_effort.plot(ax=ax2, linestyle='none', marker='o', markersize=4, col
 dates = ['2020-06-28', '2020-07-01', '2020-07-04', '2020-07-07', '2020-07-10', '2020-07-13', '2020-07-16', '2020-07-19', '2020-07-22', '2020-07-25', '2020-07-28', '2020-07-31', '2020-08-03', '2020-08-06', '2020-08-09', '2020-08-12', '2020-08-15', '2020-08-18', '2020-08-21', '2020-08-24', '2020-08-27', '2020-08-30', '2020-09-02', '2020-09-05', '2020-09-08', '2020-09-11', '2020-09-14', '2020-09-17', '2020-09-20', '2020-09-23', '2020-09-26', '2020-09-29', '2020-10-02', '2020-10-05', '2020-10-08', '2020-10-11', '2020-10-14', '2020-10-17', '2020-10-20', '2020-10-23', '2020-10-26', '2020-10-29', '2020-11-02', '2020-11-5', '2020-11-08', '2020-11-11', '2020-11-14']
 
 # ax0 graph params
-ax0.set_title('Run distance (km)')
+ax0.set_title('Run distance (mi)')
 ax0.set_xlabel(' ')
 ax0.axhline(run_df_distance.mean(), alpha=0.3, color='black')
 ax0.grid(True)
-ax0.set_xlim(df_run['Activity Name'].min(), df_run['Activity Name'].max())
-ax0.set_ylim([4,16])
+ax0.set_xlim(dates[0], dates[-1])
+ax0.set_xticklabels(labels=dates, fontsize=7)
+#ax0.set_ylim([4,16])
 
 
 # ax1 graph params
 # FININSH SETTING Y LIM'S
 # FINISH TRIMMING XLABELS
-ax1.set_title('Run avg. speed (km/h)')
+ax1.set_title('Run avg. speed (mi/h)')
 ax1.set_xlabel(' ')
 ax1.axhline(run_df_avg_speed.mean(), alpha=0.3, color='black')
 ax1.grid(True)
-ax1.set_xlim(df_run['Activity Name'].min(), df_run['Activity Name'].max())
+ax1.set_xlim(dates[0], dates[-1])
+ax1.set_xticklabels(labels=dates, fontsize=7)
 #ax1.set_ylim()
 ax1.set_xlabel('', fontsize=1)
+
+#print(df_run.columns)
+#print(df_run['Average Speed'].describe())
+
 
 # ax2 graph params
 ax2.set_title('Run perceived relative effort')
 ax2.axhline(run_df_p_rel_effort.mean(), alpha=0.3, color='black')
 ax2.grid(True)
-ax2.set_xlim(df_run['Activity Name'].min(), df_run['Activity Name'].max())
+ax2.set_xlim(dates[0], dates[-1])
+ax2.set_xticklabels(labels=dates, fontsize=7)
 #ax2.set_ylim()
 ax2.set_xlabel('', fontsize=1)
-
-print(run_df_distance.describe())
-#print(df_run['Activity Name'].max())
 
 # figure layout
 plt.setp((ax0, ax1, ax2), xticks=dates)
@@ -180,7 +184,5 @@ fig, ax = plt.subplots(3, 1)
 #ax0 = plt.plot(kind='scatter', data=run_df)
 #ax1 = plt.plot(kind='scatter', data=bike_df)
 #ax2 = plt.plot(kind='scatter', data=hike_df)
-
-
 
 
