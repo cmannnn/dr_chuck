@@ -138,7 +138,7 @@ ax0.set_xticklabels(labels=dates, fontsize=7)
 
 # ax1 graph params
 # FININSH SETTING Y LIM'S
-# FINISH TRIMMING XLABELS
+# WHY 2020-07-25 X LABEL BIGGER THAN REST?
 ax1.set_title('Run avg. speed (mi/h)')
 ax1.set_xlabel(' ')
 ax1.axhline(run_df_avg_speed.mean(), alpha=0.3, color='black')
@@ -184,5 +184,9 @@ fig, ax = plt.subplots(3, 1)
 #ax0 = plt.plot(kind='scatter', data=run_df)
 #ax1 = plt.plot(kind='scatter', data=bike_df)
 #ax2 = plt.plot(kind='scatter', data=hike_df)
+
+
+
+
 
 
