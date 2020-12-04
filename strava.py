@@ -119,6 +119,8 @@ run_df_p_rel_effort = df_run['Perceived Relative Effort']
 # creating fig, ax in subplots
 fig, (ax0, ax1, ax2) = plt.subplots(3, sharex=False, figsize=(19,8))
 
+
+
 run_df_distance.plot(ax=ax0, linestyle='none', marker='o', markersize=4)
 run_df_avg_speed.plot(ax=ax1, linestyle='none', marker='o', markersize=4, color='blue')
 run_df_p_rel_effort.plot(ax=ax2, linestyle='none', marker='o', markersize=4, color='green')
@@ -132,19 +134,24 @@ ax0.set_xlabel(' ')
 ax0.axhline(run_df_distance.mean(), alpha=0.3, color='black')
 ax0.grid(True)
 ax0.set_xlim(dates[0], dates[-1])
-ax0.set_xticklabels(labels=dates, fontsize=7)
-#ax0.set_ylim([4,16])
+#ax0.set_ylim()
+ax0.tick_params(labelrotation=55)
+#ax0.set_xticklabels(labels=dates, fontsize=9)
+
+ax0.set_yticklabels([2,3,4,5,6,7,8,9,10,11])
+
+#print(run_df_distance.min())
+#print(run_df_distance.max())
 
 
 # ax1 graph params
 # FININSH SETTING Y LIM'S
-# WHY 2020-07-25 X LABEL BIGGER THAN REST?
 ax1.set_title('Run avg. speed (mi/h)')
 ax1.set_xlabel(' ')
 ax1.axhline(run_df_avg_speed.mean(), alpha=0.3, color='black')
 ax1.grid(True)
 ax1.set_xlim(dates[0], dates[-1])
-ax1.set_xticklabels(labels=dates, fontsize=7)
+ax1.tick_params(labelrotation=55)
 #ax1.set_ylim()
 ax1.set_xlabel('', fontsize=1)
 
@@ -157,13 +164,14 @@ ax2.set_title('Run perceived relative effort')
 ax2.axhline(run_df_p_rel_effort.mean(), alpha=0.3, color='black')
 ax2.grid(True)
 ax2.set_xlim(dates[0], dates[-1])
-ax2.set_xticklabels(labels=dates, fontsize=7)
+ax2.tick_params(labelrotation=55)
 #ax2.set_ylim()
 ax2.set_xlabel('', fontsize=1)
 
 # figure layout
 plt.setp((ax0, ax1, ax2), xticks=dates)
 plt.legend('')
+
 fig.tight_layout()
 
 #plt.close()
@@ -184,9 +192,3 @@ fig, ax = plt.subplots(3, 1)
 #ax0 = plt.plot(kind='scatter', data=run_df)
 #ax1 = plt.plot(kind='scatter', data=bike_df)
 #ax2 = plt.plot(kind='scatter', data=hike_df)
-
-
-
-
-
-
