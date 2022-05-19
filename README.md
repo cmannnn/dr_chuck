@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Strava Deep Dive
 Looking into 3 months worth of Strava data. Unfortunately, I do not have a HR monitor, so this not included in the analysis. There is another metric 'Perceived Relative Effort' that sums exertion. Because I don't have HR data, I will used 'Perceived Relative Effort' to measure the intensity of my workouts. Here is their definition per the Strava website: 
 
@@ -9,3 +10,10 @@ In this analysis I aim to answer questions like:
 - How many times of each activity have I recorded?
 - Are my runs trending faster?
 - Will I meet my yearly running goal?
+=======
+# bear_classifier
+Practical Deep Learning for Coders Chapter 2
+
+
+Binder Link: https://hub-binder.mybinder.ovh/user/cmannnn-bear_classifier-8ok4cyc5/voila/render/bear_classifier_production.ipynb?token=ngArbb8pSpqppgsas942dA
+>>>>>>> 36ac0b77abc725a795d8a02fac8e18e1ca8ff52d
