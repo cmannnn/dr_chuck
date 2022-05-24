@@ -1,3 +1,2 @@
-*.xml
-*.iml
-*.csv
+.DS_Store
+.ipynb_checkpoints/
